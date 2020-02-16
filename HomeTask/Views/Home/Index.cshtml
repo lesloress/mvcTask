@@ -1,0 +1,57 @@
+﻿@model IList<Domain.Entities.Article>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@section content {
+    <div class="container-fluid p-0">
+
+        <!--/╲/\[☉﹏☉]/\╱\ -->
+
+        @foreach (var article in Model)
+        {
+            <br />
+            <div class="row d-flex align-items-center">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <img class="card-img-top w-50 m-auto" src="@article.Image" />
+                        <div class="card-body">
+                            <h3>@article.Title</h3>
+                            <p class="card-text">@article.Text.Substring(0, 200)<span>...</span></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a class="btn btn-light" href="@Url.Action("Details", new { id = article.Id})">
+                                    Подробнее
+                                </a>
+                                <small class="text-muted">@article.Date.ToShortDateString()</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="btn-group mb-2">
+            @if (ViewBag.Page > 0)
+            {
+                <a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })"
+                   class="btn btn-sm btn-outline-secondary">
+                    &laquo; Предыдущая
+                </a>
+            }
+            @if (ViewBag.Page < ViewBag.MaxPage)
+            {
+                <a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })"
+                   class="btn btn-sm btn-outline-secondary">
+                    Следующая &raquo;
+                </a>
+            }
+        </div>
+
+    </div>
+
+}
+
+@section poll {
+    @Html.Partial("Poll")
+}

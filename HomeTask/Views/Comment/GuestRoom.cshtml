@@ -1,0 +1,54 @@
+﻿@model List<Domain.Entities.Comment>
+@{
+    ViewBag.Title = "GuestRoom";
+}
+
+@section content {
+
+    <h3>Комментарии</h3>
+    <br />
+
+    @foreach (var comment in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <p><strong>@comment.Name</strong></p>
+                <p>@comment.Text</p>
+                <small class="text-muted">@comment.Date.ToShortDateString()</small>
+            </div>
+        </div>
+        <br />
+    }
+
+    <div class="btn-group mb-2">
+        @if (ViewBag.Page > 0)
+        {
+            <a href="@Url.Action("GuestRoom", new { page = ViewBag.Page - 1 })"
+               class="btn btn-sm btn-outline-secondary">
+                &laquo; Предыдущая
+            </a>
+        }
+        @if (ViewBag.Page < ViewBag.MaxPage)
+        {
+            <a href="@Url.Action("GuestRoom", new { page = ViewBag.Page + 1 })"
+               class="btn btn-sm btn-outline-secondary">
+                Следующая &raquo;
+            </a>
+        }
+    </div>
+
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "Ваше имя", rows = "3", required=""})
+        @Html.ValidationMessage("Name")
+        <br />
+        @Html.TextArea("Comment", "", new { @class = "form-control", placeholder = "Ваш комментарий...", rows = "3", required="" })
+        <br />
+        <input type="hidden" name="page" value="@ViewBag.Page"/>
+        <input class="btn btn-success" type="submit" name="Send" value="Отправить" />
+        <div class="clearfix"></div>
+        <hr>
+    }
+}

@@ -1,0 +1,64 @@
+﻿html, body {
+    min-height:100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    height: 50px;
+    bottom: 0;
+    z-index: 3;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.main {width:80%;}
+
+header {
+    top: 0;
+    z-index: 3;
+}
+
+.mainbar {
+    left: 0;
+    z-index: 1;
+    margin-bottom: 60px;
+    margin-top: 100px;
+}
+
+.sidebar {
+    right: 0;
+    z-index: 2;
+    margin-bottom: 60px;
+    margin-top: 100px;
+}
+
+@media screen and (max-width: 600px) {
+    header h2 { font-size: 20px;}
+
+    h3 { font-size:20px;}
+
+    .navbar-toggler { padding-bottom:0;}
+
+    .mainbar { margin-top:160px;}
+}
+
+
+
+
+

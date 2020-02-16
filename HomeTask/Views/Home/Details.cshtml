@@ -1,0 +1,29 @@
+﻿@model Domain.Entities.Article
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+@section content {
+    <div class="card">
+        <div class="card-header">
+            <h3>@Model.Title</h3>
+        </div>
+
+        <div class="card-body">
+            <div>@Model.Text</div>
+            <div class="text-muted m-2 float-right">@Model.Date.ToShortDateString()</div>
+        </div>
+
+        <div class="card-footer">
+            <div class="d-flex flex-row">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span class="badge badge-secondary mr-1">@tag.Name</span>
+                }
+            </div>
+        </div>
+
+    </div>
+}

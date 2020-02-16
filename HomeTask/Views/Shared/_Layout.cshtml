@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="bg-light">
+        <header class="row d-inline-flex align-items-center bg-white p-3 w-100 mb-1 position-fixed border-bottom">
+            <div class="col-3 col-sm-1">
+                <a><img src="~/Content/images/cartoon.png" alt="Logo" class="img-fluid w-75" /></a>
+            </div>
+            <div><h2>Creative design</h2></div>
+        </header>
+        <main class="container-fluid p-0">
+            <div class="row m-auto d-flex justify-content-center pt-2 main position-relative">
+                <div class="col-sm-11 col-md-10 p-0 border-right position-absolute mainbar">
+                    @RenderSection("content")
+                </div>
+                <div class="col-sm-1 col-md-2 p-0 h-100 position-absolute sidebar">
+                    <nav class="navbar navbar-expand-lg p-sm-1 navbar-light bg-light">
+                        <button class="navbar-toggler mb-3" type="button" data-target="#my_nav" data-toggle="collapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="my_nav">
+                            <ul class="navbar-nav d-flex flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="@Url.Action("Index", "Home")">
+                                        <h3><small>Главная</small></h3>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" href="@Url.Action("GuestRoom", "Comment")">
+                                        <h3><small>Гостевая</small></h3>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark active" href="@Url.Action("Questionary", "Home")">
+                                        <h3><small>Анкета</small></h3>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    @RenderSection("poll", false)
+                </div>
+            </div>
+        </main>
+
+        @RenderBody()
+        <footer class="text-muted p-2 w-100 mt-3 border-top position-fixed bg-white">
+            <div class="container">
+                <p class="float-right">
+                    <a href="#">Back to top</a>
+                </p>
+                <p>&copy;Copyright, @DateTime.Now.Year</p>
+            </div>
+        </footer>
+
+        
+    
+
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

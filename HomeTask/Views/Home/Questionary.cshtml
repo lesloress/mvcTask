@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Questionary";
+}
+
+@section content {
+    <h3>Анкета</h3>
+    <h5>Тест на знание C#</h5>
+
+    @using (Html.BeginForm())
+    {
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title">1. Что будет выведено на консоль в результате выполнения следующего метода?</h6>
+            </div>
+            <div class="card-body">
+                <p class="m-2">
+                    <code>
+                        <pre>
+                        public void TestMethod() { 
+
+                            int k = 1; 
+
+                            Console.WriteLine(k++ + ++k); 
+
+                            Console.ReadLine(); 
+
+                        }
+                        </pre>
+
+                    </code>
+                </p>
+                @Html.TextBox("First", "", new { @class = "form-control", placeholder = "Ответ..." })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title">2. Что будет выведено на консоль в результате выполнения следующего кода?</h6>
+            </div>
+            <div class="card-body">
+                <p class="m-2">
+                    <code>
+                        <pre>
+                        namespace Task4 {
+
+                            class Program {
+
+                                static void Main(string[] args){
+
+                                    string &#64;string = "abc";
+
+                                    Console.WriteLine(string);
+
+                                    Console.ReadLine();
+
+                                }
+
+                            }
+
+                        }
+                        </pre>
+                    </code>
+                </p>
+
+                <div class="form-check">
+                    @Html.RadioButton("Second", false)
+                    <span>System.String</span><br />
+
+                    @Html.RadioButton("Second", true)
+                    <span>Возникнет ошибка компиляции</span><br />
+
+                    @Html.RadioButton("Second", false)
+                    <span>Пустая строка</span>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title">3. Выберите успешно компилируемые строки.</h6>
+            </div>
+            <div class="card-body">
+                <p class="m-2">
+                    <code>
+                        <pre>
+                            int k = 1;                            //1
+
+                            object o = 5;                         //2
+
+                            object o2 = "123";                    //3
+
+                            object o3 = delegate() { return 0; }  //4
+
+                            Delegate d = delegate() { return 0; } //5
+                        </pre>
+                    </code>
+                </p>
+                <div class="form-check">
+                    @Html.CheckBox("ThirdFirst")
+                    <span>1</span><br />
+                    @Html.CheckBox("ThirdSecond")
+                    <span>2</span><br />
+                    @Html.CheckBox("ThirdThird")
+                    <span>3</span><br />
+                    @Html.CheckBox("ThirdFourth")
+                    <span>4</span><br />
+                    @Html.CheckBox("ThirdFifth")
+                    <span>5</span><br />
+                </div>
+            </div>
+        </div>
+        <br />
+        <input class="btn btn-success mb-2" type="submit" name="Send" value="Ответить" />
+        
+    }
+}
+
+
+

@@ -1,5 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Repository;
+﻿using Blog.DAL.EF;
+using Blog.DAL.Entities;
+using Blog.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,42 @@ namespace HomeTask.Controllers
             unitOfWork = new UnitOfWork(new BlogContext());
         }
 
+        public ActionResult GetComments(IEnumerable<Comment> comments, int page = 0)
+        {
+            if (comments == null)
+                return HttpNotFound();
+            int count;
+            if (comments != null)
+            {
+                count = (comments as List<Comment>).Count;
+                GetPages(ref comments, page);
+            }
+
+            else
+                count = 0;
+
+            GetPages(ref comments, page);
+
+            ViewBag.MaxPage = Max(size, count);
+            ViewBag.Page = page;
+            return PartialView("GetComments",comments);
+        }
+
         [HttpGet]
         public ActionResult GuestRoom(int page = 0)
         {
-            IEnumerable<Comment> comments = unitOfWork.Comments.GetAll();
+            IEnumerable<Comment> comments = unitOfWork.Comments.Find(c => c.Article == null).ToList();
 
-            int count = (comments as List<Comment>).Count;
+            int count; 
+
+            if (comments != null)
+            {
+                count = (comments as List<Comment>).Count;
+                GetPages(ref comments, page);
+            }
+
+            else
+                count = 0;
 
             GetPages(ref comments, page);
 

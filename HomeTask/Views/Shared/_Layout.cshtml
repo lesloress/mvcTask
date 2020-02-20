@@ -1,15 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/scripts/jquery-3.4.1.min.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
 </head>
 <body class="bg-light">
-        <header class="row d-inline-flex align-items-center bg-white p-3 w-100 mb-1 position-fixed border-bottom">
+        <header class="row d-inline-flex align-items-center bg-white m-0 p-3 w-100 mb-1 position-fixed border-bottom">
             <div class="col-3 col-sm-1">
                 <a><img src="~/Content/images/cartoon.png" alt="Logo" class="img-fluid w-75" /></a>
             </div>

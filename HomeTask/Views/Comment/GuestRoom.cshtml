@@ -1,6 +1,6 @@
-﻿@model List<Domain.Entities.Comment>
+﻿@model List<Blog.DAL.Entities.Comment>
 @{
-    ViewBag.Title = "GuestRoom";
+    ViewBag.Title = "Гостевая";
 }
 
 @section content {
@@ -14,7 +14,7 @@
             <div class="card-body">
                 <p><strong>@comment.Name</strong></p>
                 <p>@comment.Text</p>
-                <small class="text-muted">@comment.Date.ToShortDateString()</small>
+                <small class="text-muted">@comment.Date</small>
             </div>
         </div>
         <br />

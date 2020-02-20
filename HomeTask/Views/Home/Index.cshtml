@@ -1,13 +1,17 @@
-﻿@model IList<Domain.Entities.Article>
+﻿@model IList<Blog.DAL.Entities.Article>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Статьи";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        //Устанавливает идентификатор HTML-элемента,
+        //в который будет вставлено содержимое, полученное с сервера
+        UpdateTargetId = "poll"
+    };
 }
 
 @section content {
     <div class="container-fluid p-0">
-
-        <!--/╲/\[☉﹏☉]/\╱\ -->
 
         @foreach (var article in Model)
         {
@@ -24,6 +28,14 @@
                                     Подробнее
                                 </a>
                                 <small class="text-muted">@article.Date.ToShortDateString()</small>
+                            </div>
+                            <div class="d-flex flex-row">
+                                @foreach (var tag in article.Tags)
+                                {
+                                    <a href="@Url.Action("Index", "Home", new {tagId = tag.Id })">
+                                        <span class="badge badge-secondary mr-1">@tag.Name</span>
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -53,5 +65,18 @@
 }
 
 @section poll {
-    @Html.Partial("Poll")
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+                <div class="card" id="poll">
+                    @Html.Action("Poll", new { view = "poll" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 }
+
+
+

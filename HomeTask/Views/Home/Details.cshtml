@@ -1,4 +1,4 @@
-﻿@model Domain.Entities.Article
+﻿@model HomeTask.Models.ArticleDetails
 
 @{
     ViewBag.Title = Model.Title;
@@ -9,18 +9,51 @@
     <div class="card">
         <div class="card-header">
             <h3>@Model.Title</h3>
+            <a href="#" class="card-link">@Model.AuthorName</a>
         </div>
 
         <div class="card-body">
             <div>@Model.Text</div>
-            <div class="text-muted m-2 float-right">@Model.Date.ToShortDateString()</div>
+            <div class="text-muted m-2 float-right">@Model.Date</div>
         </div>
 
         <div class="card-footer">
             <div class="d-flex flex-row">
                 @foreach (var tag in Model.Tags)
                 {
-                    <span class="badge badge-secondary mr-1">@tag.Name</span>
+                    <a href="@Url.Action("Index", "Home", new {tagId = tag.Id })">
+                        <span class="badge badge-secondary mr-1">@tag.Name</span>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="container">
+            <h3>Комментарии</h3>
+            <br />
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p><strong>@comment.Name</strong></p>
+                        <p>@comment.Text</p>
+                        <small class="text-muted">@comment.Date</small>
+                    </div>
+                </div>
+                <br />
+            }
+
+            <div>
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "Ваше имя", rows = "3", required = "" })
+                    <br />
+                    @Html.TextArea("Comment", "", new { @class = "form-control", placeholder = "Ваш комментарий...", rows = "3", required = "" })
+                    <br />
+                    <input type="hidden" name="ArticleId" value="@Model.Id" />
+                    <input class="btn btn-success" type="submit" name="Send" value="Отправить" />
+                    <div class="clearfix"></div>
+                    <hr>
                 }
             </div>
         </div>

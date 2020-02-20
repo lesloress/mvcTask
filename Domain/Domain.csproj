@@ -53,9 +53,6 @@
     <Reference Include="Microsoft.Analytics.Types" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Article.cs" />
-    <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Migrations\202002100030127_InitialCreate.cs" />
     <Compile Include="Migrations\202002100030127_InitialCreate.designer.cs">
       <DependentUpon>202002100030127_InitialCreate.cs</DependentUpon>
@@ -68,16 +65,18 @@
     <Compile Include="Migrations\202002161109236_AddTags.designer.cs">
       <DependentUpon>202002161109236_AddTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002190802465_AddUser.cs" />
+    <Compile Include="Migrations\202002190802465_AddUser.designer.cs">
+      <DependentUpon>202002190802465_AddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BlogContext.cs" />
-    <Compile Include="Repository\BlogDbInitializer.cs" />
-    <Compile Include="Repository\ArticleRepository.cs" />
-    <Compile Include="Repository\IArticleRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IUnitOfWork.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="Repositories\ArticleRepository.cs" />
+    <Compile Include="Repositories\IArticleRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002161109236_AddTags.resx">
       <DependentUpon>202002161109236_AddTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002190802465_AddUser.resx">
+      <DependentUpon>202002190802465_AddUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

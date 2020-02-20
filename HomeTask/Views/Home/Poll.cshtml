@@ -1,26 +1,51 @@
-﻿
-<div class="container-fluid">
+﻿@*<div class="container-fluid">
     <div class="row">
         <div class="col-10">
-            <div class="card">
-                @using (Html.BeginForm("Poll", "Home", FormMethod.Post, 
-                    new { @class = "d-flex justify-center flex-column p-2" }))
-                {
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            @Html.RadioButton("C#", "csharp", false, new { @class = "form-check-input" })C#
-                        </label>
-                    </div>
+            <div class="card">*@
+@*@using (Html.BeginForm("Poll", "Home", FormMethod.Post,
+        new { @class = "d-flex justify-center flex-column p-2" }))
+    {
+        <div class="form-check">
+            <label class="form-check-label">
+                @Html.RadioButton("C#", "csharp", false, new { @class = "form-check-input" })C#
+            </label>
+        </div>
 
-                    <div class="form-check">
-                        <label class="form-check-label">
+        <div class="form-check">
+            <label class="form-check-label">
 
-                            @Html.RadioButton("Java", "java", false, new { @class = "form-check-input" })Java
-                        </label>
-                    </div>
-                    <input class="btn btn-sm btn-outline-success" type="submit" name="Send" value="Голосовать" />
-                }
+                @Html.RadioButton("Java", "java", false, new { @class = "form-check-input" })Java
+            </label>
+        </div>
+        <input class="btn btn-sm btn-outline-success" type="submit" name="Send" value="Голосовать" />
+    }*@
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        //Устанавливает идентификатор HTML-элемента,
+        //в который будет вставлено содержимое, полученное с сервера
+        UpdateTargetId = "poll"
+    };
+}
+
+
+@using (Ajax.BeginForm("Poll", ajaxOptions))
+{
+    <div class="form-check">
+        <label class="form-check-label">
+            @Html.RadioButton("C#", "csharp", false, new { @class = "form-check-input" })C#
+        </label>
+    </div>
+
+    <div class="form-check">
+        <label class="form-check-label">
+
+            @Html.RadioButton("Java", "java", false, new { @class = "form-check-input" })Java
+        </label>
+    </div>
+    <input class="btn btn-sm btn-outline-success" type="submit" name="Send" value="Голосовать" />
+}
+@*</div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@

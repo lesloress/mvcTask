@@ -1,5 +1,9 @@
-﻿using Domain.Entities;
-using Domain.Repository;
+﻿using Blog.DAL.EF;
+using Blog.DAL.Entities;
+using Blog.DAL.Repositories;
+using HomeTask.Mapping;
+using HomeTask.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,13 +14,13 @@ namespace HomeTask.Controllers
     {
         UnitOfWork unitOfWork;
 
-        private string[] elementaryBooks =
+        private readonly string[] elementaryBooks =
         {
             "Head First C#, Jennifer Greene, Andrew Stellman",
             "C# 6.0 and the .NET 4.6 Framework (7th Edition), Andrew Troelsen, Philip Japikse",
             "metanit.com"
         };
-        private string[] books = 
+        private readonly string[] books = 
         {
             "CLR via C#. Программирование на платформе Microsoft .NET Framework 4.5 на языке C#, Джеффри Рихтер.",
             "C# 7.0 in a Nutshell: The Definitive Reference, Joseph Albahari, Ben Albahari",
@@ -30,9 +34,17 @@ namespace HomeTask.Controllers
             unitOfWork = new UnitOfWork(new BlogContext());
         }
 
-        public ActionResult Index(int page = 0)
+        public ActionResult Index(int? tagId, int page = 0)
         {
-            IEnumerable<Article> articles = unitOfWork.Articles.GetAll();
+            IEnumerable<Article> articles;
+
+            if (tagId != null)
+            {
+                articles = unitOfWork.Articles.GetArticlesWithSpecialTags((int)tagId);
+            }
+
+            else
+                articles = unitOfWork.Articles.GetArticlesWithTags();
 
             int count = (articles as List<Article>).Count;
 
@@ -49,6 +61,7 @@ namespace HomeTask.Controllers
             return View(articles);
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,20 +72,39 @@ namespace HomeTask.Controllers
                 if (article == null)
                     return HttpNotFound();
                 else
-                    return View(article);
+                {
+                    ArticleDetails details = ArticleMapper.GetArticleDetails(article);
+                    return View(details);
+                }
             }
         }
 
-        [HttpGet]
-        public ActionResult Poll()
+        [HttpPost]
+        public ActionResult Details(FormCollection formCollection)
         {
-            return PartialView();
+            int artId = Convert.ToInt32(formCollection["ArticleId"]);
+            unitOfWork.Comments.Add(new Comment
+            {
+                Name = formCollection["Name"],
+                Text = formCollection["Comment"],
+                Date = DateTime.Now.Date,
+                ArticleId = artId
+            });
+
+            unitOfWork.Complete();
+
+            return RedirectToAction("Details", new { id = artId});
+
         }
 
-        [HttpPost]
-        public ActionResult Poll(FormCollection formCollection)
+        public ActionResult Poll(string view = "poll")
         {
-            return PartialView();
+            if (view == "poll")
+                return PartialView("Poll");
+            else
+            {
+                return PartialView("Result");
+            }
         }
 
         [HttpGet]
@@ -90,7 +122,7 @@ namespace HomeTask.Controllers
                 sum++;
 
 
-            var s = formCollection["Second"];
+            //var s = formCollection["Second"];
             if (formCollection["Second"] == "True")
                 sum++;
 

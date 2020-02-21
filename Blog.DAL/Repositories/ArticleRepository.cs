@@ -29,18 +29,25 @@ namespace Blog.DAL.Repositories
             return article;
         }
 
-        public IEnumerable<Article> GetArticlesWithTags()
+        public Article GetArticleWithTags(int id)
+        {
+            return blogContext.Articles
+                .Include(a => a.Tags)
+                .Where(a => a.Id == id)
+                .FirstOrDefault();
+        }
+        public IEnumerable<Article> GetAllArticlesWithTags()
         {
             return blogContext.Articles
                 .Include(a => a.Tags)
                 .ToList();
         }
 
-        public IEnumerable<Article> GetArticlesWithSpecialTags(int tagId)
+        public IEnumerable<Article> GetAllArticlesWithSpecialTags(string name)
         {
             return blogContext.Articles
                 .Include(a => a.Tags)
-                .Where(a => a.Tags.Any(t => t.Id == tagId))
+                .Where(a => a.Tags.Any(t => t.Name == name))
                 .ToList();
         }
 

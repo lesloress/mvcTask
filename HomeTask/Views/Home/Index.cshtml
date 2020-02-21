@@ -12,7 +12,7 @@
 
 @section content {
     <div class="container-fluid p-0">
-
+        <a class="btn btn-light" href="@Url.Action("AddArticle", "Home")">Добавить</a>
         @foreach (var article in Model)
         {
             <br />
@@ -32,7 +32,7 @@
                             <div class="d-flex flex-row">
                                 @foreach (var tag in article.Tags)
                                 {
-                                    <a href="@Url.Action("Index", "Home", new {tagId = tag.Id })">
+                                    <a href="@Url.Action("Index", "Home", new {tagName = tag.Name })">
                                         <span class="badge badge-secondary mr-1">@tag.Name</span>
                                     </a>
                                 }

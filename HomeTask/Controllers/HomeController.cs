@@ -34,17 +34,17 @@ namespace HomeTask.Controllers
             unitOfWork = new UnitOfWork(new BlogContext());
         }
 
-        public ActionResult Index(int? tagId, int page = 0)
+        public ActionResult Index(string tagName, int page = 0)
         {
             IEnumerable<Article> articles;
 
-            if (tagId != null)
+            if (tagName != null)
             {
-                articles = unitOfWork.Articles.GetArticlesWithSpecialTags((int)tagId);
+                articles = unitOfWork.Articles.GetAllArticlesWithSpecialTags(tagName);
             }
 
             else
-                articles = unitOfWork.Articles.GetArticlesWithTags();
+                articles = unitOfWork.Articles.GetAllArticlesWithTags();
 
             int count = (articles as List<Article>).Count;
 
@@ -94,7 +94,45 @@ namespace HomeTask.Controllers
             unitOfWork.Complete();
 
             return RedirectToAction("Details", new { id = artId});
+        }
 
+        [HttpGet]
+        public ActionResult EditArticle(int? articleId)
+        {
+            if (articleId == null)
+                return HttpNotFound();
+
+            else
+                return View(unitOfWork.Articles.GetArticleWithTags((int)articleId));
+        }
+
+        [HttpPost]
+        public ActionResult EditArticle(Article article)
+        {
+            unitOfWork.Articles.Update(article);
+            unitOfWork.Complete();
+            return RedirectToAction("Details", new {id = article.Id});
+        }
+
+        [HttpGet]
+        public ActionResult AddArticle()
+        {
+            return View(new Article());
+        }
+
+        [HttpPost]
+        public ActionResult AddArticle(Article article)
+        {
+            article.User = unitOfWork.Users.GetAll().ToList()[0];
+            article.Date = DateTime.Now.Date;
+            unitOfWork.Articles.Add(article);
+            unitOfWork.Complete();
+            return RedirectToAction("Details", new { id = article.Id });
+        }
+
+        public ActionResult AddTag()
+        {
+            return PartialView("TagsEditor");
         }
 
         public ActionResult Poll(string view = "poll")

@@ -7,7 +7,7 @@ namespace Blog.DAL.Interfaces
     {
         IArticleRepository Articles { get; }
         IRepository<Comment> Comments { get; }
-        IRepository<Tag> Tags { get; }
+        ITagRepository Tags { get; }
         IRepository<User> Users { get; }
         int Complete();
     }

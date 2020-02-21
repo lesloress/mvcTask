@@ -21,13 +21,18 @@ footer {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+/*input,
+select {
     max-width: 280px;
+}*/
+
+#articletextarea {
+    min-width: 100%;
 }
 
-.main {width:80%;}
+.main {
+    width: 80%;
+}
 
 header {
     top: 0;

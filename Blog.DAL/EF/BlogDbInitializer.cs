@@ -6,7 +6,7 @@ using System.Data.Entity;
 namespace Blog.DAL.EF
 {
     //Custom db initializer
-    public class BlogDbInitializer : DropCreateDatabaseAlways<BlogContext>
+    public class BlogDbInitializer : DropCreateDatabaseIfModelChanges<BlogContext>
     {
         protected override void Seed(BlogContext context)
         {

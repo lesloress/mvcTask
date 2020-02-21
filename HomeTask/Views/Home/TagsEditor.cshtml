@@ -1,0 +1,16 @@
+﻿@model Blog.DAL.Entities.Tag
+
+@using HtmlHelpers.BeginCollectionItem
+
+<li class="list-inline-item">
+    @using (Html.BeginCollectionItem("Tags"))
+    {
+        <div class="input-group mb-1">
+            <button type="button" class="btn btn-dark btn-xs" onclick="$(this).parent().remove();">
+                <span>X</span>
+            </button>
+            @Html.EditorFor(model => model.Name)
+        </div>
+    }
+
+</li>

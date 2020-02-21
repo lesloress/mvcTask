@@ -10,7 +10,7 @@ namespace HomeTask.Util
         public override void Load()
         {
             Bind<IArticleRepository>().To<ArticleRepository>();
-            Bind<IRepository<Tag>>().To<Repository<Tag>>();
+            Bind<ITagRepository>().To<TagRepository>();
             Bind<IRepository<Comment>>().To<Repository<Comment>>();
             Bind<IRepository<User>>().To<Repository<User>>();
         }

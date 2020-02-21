@@ -6,7 +6,8 @@ namespace Blog.DAL.Interfaces
     public interface IArticleRepository : IRepository<Article>
     {
         Article GetArticleWithComments(int id);
-        IEnumerable<Article> GetArticlesWithTags();
-        IEnumerable<Article> GetArticlesWithSpecialTags(int tagId);
+        Article GetArticleWithTags(int id);
+        IEnumerable<Article> GetAllArticlesWithTags();
+        IEnumerable<Article> GetAllArticlesWithSpecialTags(string name);
     }
 }
